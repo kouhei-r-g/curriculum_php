@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
     $limit = 40;
     $total = 0;
     for ($i = 1; $i <= $limit; $i++) {
@@ -11,12 +11,34 @@
             break;
         }
     }
-?><br>
+?><br> -->
+
+<!-- while文 -->
+<?php
+    $limit = 0;
+    $i = 1;
+    $total = 0;
+    while ($limit <= 40) {
+        $n = mt_rand(1, 6);
+        echo "{$i}回目={$n}";
+        echo "<br>";
+        $i ++;
+        $limit += $n;
+        if ($total >= $limit) {
+            echo "合計{$i}回でゴールしました";
+            break;
+        }
+    }
+?>
+
+
+
+
 
 
 <?php
 
-
+date_default_timezone_set('Asia/Tokyo');
 $time = date('H');
 
 if (6 <= $time && $time <= 12 ){
