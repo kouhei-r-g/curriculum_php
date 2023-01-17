@@ -1,0 +1,33 @@
+main{
+    text-align: center;
+    background-color: dimgrey;
+    color: white;
+    font-family: serif;
+    height: 900px;
+}
+
+.top{
+    height: 200px;
+    background-color: dimgrey;
+    border-bottom: 5px solid white;
+}
+
+.bottom{
+    height: 700px;
+    background-color: dimgrey;
+}
+
+h1{
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.formtext{
+    margin-top: 50px;
+}
+
+.name{
+    padding-top: 50px;
+}
