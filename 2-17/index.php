@@ -1,17 +1,4 @@
-<!-- <?php
-    $limit = 40;
-    $total = 0;
-    for ($i = 1; $i <= $limit; $i++) {
-        $n = mt_rand(1, 6);
-        $total += $n;
-        echo "{$i}回目={$n}";
-        echo "<br>";
-        if ($total >= $limit) {
-            echo "合計{$i}回でゴールしました";
-            break;
-        }
-    }
-?><br> -->
+
 
 <!-- while文 -->
 <?php
@@ -24,12 +11,10 @@
         echo "<br>";
         $i ++;
         $limit += $n;
-        if ($total >= $limit) {
-            echo "合計{$i}回でゴールしました";
-            break;
-        }
+        
     }
-?>
+    echo "合計{$i}回でゴールしました";
+?><br>
 
 
 
