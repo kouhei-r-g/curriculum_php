@@ -1,0 +1,79 @@
+header{
+    display: flex;
+}
+
+
+.header-left {
+    display: inline-block;
+    background-color: #add8e6;
+    height: 120px;
+    width: 200px;
+  }
+
+  img{
+    height: 120px;
+    width: 200px;
+  }
+  
+  .top{
+    height: 60px;
+    width: 800px;
+    background-color: #87ceeb;
+  }
+
+  .bottom{
+    height: 60px;
+    width: 800px;
+    background-color: #00ffff;
+  }
+
+
+  .header-right .top {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+  
+  .style1 {
+    margin: 0;
+    text-align: center;
+  }
+  .header-right .bottom {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+  
+  .style2 {
+    margin: 0;
+    text-align: center;
+  }
+  
+
+
+  main{
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .DBtable{
+    text-align: center;
+  }
+
+  th{
+    background-color: #87ceeb;
+  }
+
+  td{
+    background-color: #e0ffff;
+  }
+
+  footer{
+    width: 1000px;
+    height: 50px;
+    margin-top: 10px;
+    background-color: #00ced1;
+  }
