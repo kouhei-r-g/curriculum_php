@@ -14,21 +14,16 @@ if (!empty($_POST)) {
         $errorMessage .= "パスワードが未入力です。<br>";
     }
 
-
     // 両方共入力されている場合
     if (!empty($_POST["name"]) && !empty($_POST["pass"])) {
         //ログイン名とパスワードのエスケープ処理
         $name = htmlspecialchars($_POST['name'], ENT_QUOTES);
         $pass = htmlspecialchars($_POST['pass'], ENT_QUOTES);
         // ログイン処理開始
-        $pdoConfig = new PDOConfig();
-        $pdoConfig->connect();
-        $pdo = $pdoConfig->pdo;
-
         try {
-            //データベースアクセスの処理文章。ログイン名があるか判定
+            //ログイン名があるか判定
             $sql = "SELECT * FROM users WHERE name = :name";
-            $stmt = $pdo->prepare($sql);
+            $stmt = $dbh->prepare($sql);
             $stmt->bindParam(':name', $name);
             $stmt->execute();
         } catch (PDOException $e) {

@@ -1,34 +1,14 @@
 <?php
-  class PDOConfig{
-    private $host;
-    private $dbname;
-    private $charset;
-    private $user;
-    private $password;
-    private $options;
-    private $dsn;
-    public $pdo;
+    define('DB_DATABASE', 'yigroupBlog');
+    define('DB_USERNAME', 'root');
+    define('DB_PASSWORD', 'root');
+    define('PDO_DSN', 'mysql:host=localhost;charset=utf8;dbname='.DB_DATABASE);
     
-    public function __construct(){
-        $this->host = 'localhost';
-        $this->dbname = 'yigroupblog';
-        $this->charset = 'utf8';
-        $this->user = 'root';
-        $this->password ='root';
-        $this->dsn = "mysql:host=$this->host;dbname=$this->dbname;charset=$this->charset";
-        $this->options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-        ];
+    try {
+        $dbh = new PDO(PDO_DSN, DB_USERNAME, DB_PASSWORD);
+        
+    } catch (PDOException $e) {
+        echo 'Error:' . $e->getMessage();
+        die();
     }
-    
-    public function connect(){
-        try{
-            $this->pdo = new PDO($this->dsn, $this->user, $this->password, $this->options);
-        } catch (PDOException $e){
-            echo 'Error: '. $e->getMessage();
-            die();
-        }
-    }
-  }
+?>

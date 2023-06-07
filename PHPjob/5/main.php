@@ -7,19 +7,11 @@ if (empty($_SESSION["user_name"])) {
     exit;
 }
 
-// データベース接続の設定
-$dsn = 'mysql:host=localhost;dbname=yigroupblog;charset=utf8';
-$username = 'root';
-$password = 'root';
+require_once('pdo.php');
 
 try {
-    // データベースに接続
-    $pdo = new PDO($dsn, $username, $password);
-    // エラーモードを設定
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
     // booksテーブルのデータを取得
-    $stmt = $pdo->query("SELECT * FROM books");
+    $stmt = $dbh->query("SELECT * FROM books");
     $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo 'データベースの接続に失敗しました: ' . $e->getMessage();

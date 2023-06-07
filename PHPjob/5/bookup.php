@@ -17,14 +17,7 @@ if (!empty($_POST)) {
 
     if (empty($errorMessage)) {
         try {
-            $dsn = "mysql:host=localhost;dbname=yigroupblog;charset=utf8mb4";
-            $username = "root";
-            $password = "root";
-            
-            $pdo = new PDO($dsn, $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $stmt = $pdo->prepare("INSERT INTO books (title, date, stock) VALUES (?, ?, ?)");
+            $stmt = $dbh->prepare("INSERT INTO books (title, date, stock) VALUES (?, ?, ?)");
             $stmt->execute([$_POST["title"], $_POST["date"], $_POST["stock"]]);
 
             if ($stmt->rowCount() > 0) {
@@ -32,8 +25,6 @@ if (!empty($_POST)) {
             } else {
                 echo "本の登録に失敗しました。";
             }
-
-            $pdo = null;
         } catch (PDOException $e) {
             echo "データベースエラー: " . $e->getMessage();
         }
