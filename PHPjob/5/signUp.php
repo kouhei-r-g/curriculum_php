@@ -1,4 +1,19 @@
 <?php
+$servername = "localhost";
+$usernameDB = "root";
+$passwordDB = "root";
+$database = "yigroupblog";
+
+try {
+    // PDOインスタンスの作成
+    $pdo = new PDO("mysql:host=$servername;dbname=$database;charset=utf8mb4", $usernameDB, $passwordDB);
+
+    // PDOエラーモードを設定
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("データベース接続エラー: " . $e->getMessage());
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // フォームからユーザー名とパスワードを取得
     if (isset($_POST["name"]) && isset($_POST["password"])) {
@@ -8,33 +23,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // パスワードをハッシュ化
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // データベースに新規ユーザーを登録する処理を行う
-        $servername = "localhost";
-        $usernameDB = "root";
-        $passwordDB = "root";
-        $database = "yigroupblog";
+        try {
+            // ユーザーをデータベースに登録するクエリ
+            $stmt = $pdo->prepare("INSERT INTO users (name, password) VALUES (?, ?)");
+            $stmt->execute([$username, $hashedPassword]);
 
-        // データベースに接続
-        $conn = new mysqli($servername, $usernameDB, $passwordDB, $database);
-
-        // 接続エラーハンドリング
-        if ($conn->connect_error) {
-            die("データベース接続エラー: " . $conn->connect_error);
+            if ($stmt->rowCount() > 0) {
+                // 登録成功時の処理
+                echo "新規ユーザーが登録されました。";
+            } else {
+                // 登録エラーハンドリング
+                echo "ユーザーの登録に失敗しました。";
+            }
+        } catch (PDOException $e) {
+            echo "データベースエラー: " . $e->getMessage();
         }
-
-        // ユーザーをデータベースに登録するクエリ
-        $sql = "INSERT INTO users (name, password) VALUES ('$username', '$hashedPassword')";
-
-        if ($conn->query($sql) === true) {
-            // 登録成功時の処理
-            echo "新規ユーザーが登録されました。";
-        } else {
-            // 登録エラーハンドリング
-            echo "エラー: " . $sql . "<br>" . $conn->error;
-        }
-
-        // データベース接続を閉じる
-        $conn->close();
     }
 }
 ?>
