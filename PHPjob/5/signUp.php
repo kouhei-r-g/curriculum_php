@@ -1,18 +1,5 @@
 <?php
-$servername = "localhost";
-$usernameDB = "root";
-$passwordDB = "root";
-$database = "yigroupblog";
-
-try {
-    // PDOインスタンスの作成
-    $pdo = new PDO("mysql:host=$servername;dbname=$database;charset=utf8mb4", $usernameDB, $passwordDB);
-
-    // PDOエラーモードを設定
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("データベース接続エラー: " . $e->getMessage());
-}
+require_once 'pdo.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // フォームからユーザー名とパスワードを取得
@@ -25,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         try {
             // ユーザーをデータベースに登録するクエリ
-            $stmt = $pdo->prepare("INSERT INTO users (name, password) VALUES (?, ?)");
+            $stmt = $dbh->prepare("INSERT INTO users (name, password) VALUES (?, ?)");
             $stmt->execute([$username, $hashedPassword]);
 
             if ($stmt->rowCount() > 0) {
